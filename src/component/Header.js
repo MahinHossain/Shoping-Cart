@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <div className="container bg-primary">
+    <div className="container headerBg">
       {" "}
       <div className="row">
         <h3 className="col-8">Small shoping Cart</h3>
