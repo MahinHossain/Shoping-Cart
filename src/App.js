@@ -1,8 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import Basket from "./component/Basket";
-import Main from "./component/Main";
-import Header from "./component/Header";
+
 import Products from "./component/Products";
 import data from "../src/component/Data";
 import { useState } from "react";
@@ -11,43 +9,16 @@ function App() {
   const [cartItem, setcartItem] = useState([]);
   const [page, setpage] = useState("products");
 
-  const renderProduct = () => (
-    <div>
-      {" "}
-      <h2>Products</h2>
-      <div className="row">
-        {" "}
-        {data.map((item) => (
-          <div class="card mt-5" style={{ height: 250, width: 230 }}>
-            <div class="card-body">
-              <img
-                class="card-img-top"
-                style={{ height: 200, width: 200 }}
-                src={item.image}
-                alt="Card image cap"
-              />
+  // const renderProduct = () => (
 
-              <h5 class="card-title">{item.name}</h5>
-              <h6>{item.price}</h6>
-              <button
-                onClick={() => addToCart(item)}
-                class="btn btn-primary small"
-              >
-                Add to card
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  // );
   const renderCartItem = () => (
     <div>
       {" "}
       <h2>Cart</h2>
       <div className="row">
         {" "}
-        {cartItem.map((item) => (
+        {cartItem.map((item, index) => (
           <div class="card" style={{ height: 250, width: 230 }}>
             <div class="card-body">
               <img
@@ -59,7 +30,11 @@ function App() {
 
               <h5 class="card-title">{item.name}</h5>
               <h6>{item.price}</h6>
-              <a href="#" class="btn btn-primary small">
+              <a
+                href="#"
+                class="btn btn-primary small"
+                onClick={() => removeFromCart(item)}
+              >
                 Remove Item
               </a>
             </div>
@@ -76,10 +51,14 @@ function App() {
     setpage("products");
   };
 
-  const addToCart = (product) => {
-    setcartItem([...cartItem, product]);
-    console.log(`cartItem`, cartItem);
+  const addToCart1 = (product) => {
+    setcartItem([...cartItem, { ...product }]);
   };
+
+  const removeFromCart = (item) => {
+    setcartItem(cartItem.filter((items) => items !== item));
+  };
+
   return (
     <div className="App container">
       <div className="float-right">
@@ -95,7 +74,7 @@ function App() {
           </button>
         </div>
       </div>
-      {page === "products" && renderProduct()}
+      {page === "products" && <Products addToCart={() => addToCart1()} />}
 
       {page === "cart" && renderCartItem()}
     </div>
