@@ -1,7 +1,7 @@
 import React from "react";
 import data from "./Data";
 
-export default function Products({ addToCart }) {
+export default function Products({ addToCart1 }) {
   return (
     <div>
       <h2>Products</h2>
@@ -16,11 +16,10 @@ export default function Products({ addToCart }) {
                 src={item.image}
                 alt="Card image cap"
               />
-
               <h5 class="card-title">{item.name}</h5>
               <h6>{item.price}</h6>
               <button
-                onClick={() => addToCart(item)}
+                onClick={() => addToCart1(item)}
                 class="btn btn-primary small"
               >
                 Add to card

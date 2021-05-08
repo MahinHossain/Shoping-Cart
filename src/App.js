@@ -2,47 +2,13 @@ import logo from "./logo.svg";
 import "./App.css";
 
 import Products from "./component/Products";
+import Cart from "./component/Cart";
 import data from "../src/component/Data";
 import { useState } from "react";
 
 function App() {
   const [cartItem, setcartItem] = useState([]);
   const [page, setpage] = useState("products");
-
-  // const renderProduct = () => (
-
-  // );
-  const renderCartItem = () => (
-    <div>
-      {" "}
-      <h2>Cart</h2>
-      <div className="row">
-        {" "}
-        {cartItem.map((item, index) => (
-          <div class="card" style={{ height: 250, width: 230 }}>
-            <div class="card-body">
-              <img
-                class="card-img-top"
-                style={{ height: 200, width: 200 }}
-                src={item.image}
-                alt="Card image cap"
-              />
-
-              <h5 class="card-title">{item.name}</h5>
-              <h6>{item.price}</h6>
-              <a
-                href="#"
-                class="btn btn-primary small"
-                onClick={() => removeFromCart(item)}
-              >
-                Remove Item
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 
   const viewItem = () => {
     setpage("cart");
@@ -51,8 +17,10 @@ function App() {
     setpage("products");
   };
 
-  const addToCart1 = (product) => {
+  const addToCart = (product) => {
+    console.log(`product`, product);
     setcartItem([...cartItem, { ...product }]);
+    console.log(`product`, product);
   };
 
   const removeFromCart = (item) => {
@@ -74,9 +42,11 @@ function App() {
           </button>
         </div>
       </div>
-      {page === "products" && <Products addToCart={() => addToCart1()} />}
+      {page === "products" && <Products addToCart1={addToCart} />}
 
-      {page === "cart" && renderCartItem()}
+      {page === "cart" && (
+        <Cart cartItem={cartItem} removeFromCart={removeFromCart} />
+      )}
     </div>
   );
 }
